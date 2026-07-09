@@ -54,3 +54,90 @@ class GeneralExpense extends Expense {
   }
 }
 
+void main(){
+  List<Expense> expenseTracker=[];
+
+  while (true) {
+    print("\n===== Expense Tracker =====");
+    print("1. Add Expense");
+    print("2. View All Expenses");
+    print("3. Show Total Expenses");
+    print("4. Exit");
+stdout.write("Choose Option: ");
+
+String? choice= stdin.readLineSync();
+
+if (choice ==1) {
+  addexpense(expenseTracker);}
+
+else if (choice == "2"){
+  ViewAllExpenses(expenseTracker);}
+
+else if (choice == "3") {
+  showTotalExpenses(expenseTracker);}
+
+else if (choice == "4") {
+  print("Thank you for using Expense Tracker!");}
+
+else { print("Invalid Option. Please choose between 1 and 4.");}
+ }
+}
+void addExpense(List<Expense> list) {
+  stdout.write("\nEnter Expense Title: ");
+  String title = stdin.readLineSync() ?? "Untitled";
+
+  stdout.write("Enter Expense Amount: ");
+  double amount = double.tryParse(stdin.readLineSync() ?? "") ?? 0.0;
+
+  stdout.write("Enter Category (Food/Transport/Entertainment): ");
+  String categoryInput = stdin.readLineSync() ?? "General";
+
+  Expense finalExpense;
+
+  void addExpense(List<Expense> list) {
+    stdout.write("\nEnter Expense Title: ");
+    String title = stdin.readLineSync() ?? "Untitled";
+
+    stdout.write("Enter Expense Amount: ");
+    double amount = double.tryParse(stdin.readLineSync() ?? "") ?? 0.0;
+    stdout.write("Enter Category (Food/Transport/Entertainment): ");
+    String categoryInput = stdin.readLineSync() ?? "General";
+    Expense finalExpense;
+
+
+    switch (categoryInput.trim().toLowerCase()) {
+      case 'food':
+        finalExpense = FoodExpense(title, amount);
+
+      case 'transport':
+        finalExpense = TransportExpense(title, amount);
+
+      case 'entertainment':
+        finalExpense = EntertainmentExpense(title, amount);
+
+      default:
+        finalExpense = GeneralExpense(title, amount, categoryInput);
+    }
+
+    list.add(finalExpense);
+    print("Expense Added Successfully!");
+  }
+
+  void viewAllExpenses(List<Expense> list) {
+    if (list.isEmpty) {
+      print("\nNo expenses logged yet.");
+      return;
+    }
+
+
+    print("\n===== All Expenses =====");
+    for (int i = 0; i < list.length; i++) {
+      list[i].displayInfo(i + 1);
+    }
+  }
+
+  void showTotalExpenses(List<Expense> list) {
+    double total = 0.0;
+
+
+
