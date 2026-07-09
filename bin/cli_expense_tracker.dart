@@ -1,7 +1,7 @@
 import 'dart:io';
 extension CurrencyFormatter on double{
   String toTaka(){
-    return "৳${thia.toStringAsFixed(2)}";
+    return "৳${this.toStringAsFixed(2)}";
   }
 }
 
@@ -41,8 +41,8 @@ class EntertainmentExpense extends Expense {
   EntertainmentExpense (super.title, super.amount) : super("Entertainment");
 
   @override
-  void displayInfo()(int index){
-  print ("index. $title \t - ${amount.toTaka()} \t - $catagory");
+  void displayInfo(int index){
+  print ("$index. $title \t - ${amount.toTaka()} \t - $catagory");
   }
 }
 
@@ -139,5 +139,9 @@ void addExpense(List<Expense> list) {
   void showTotalExpenses(List<Expense> list) {
     double total = 0.0;
 
+    for (var expense in list) {
+      total += expense.amount;}
 
 
+    print("Total Expenses: ${total.toTaka()}");
+  }
