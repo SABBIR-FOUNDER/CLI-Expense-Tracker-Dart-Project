@@ -16,5 +16,32 @@ abstract class Expense {
   double get amount=>_amount;
   String get catagory=> _catagory;
 
+  void displayInfo(int index);
+}
 
+class FoodExpense extends Expense {
+  FoodExpense(super.title, super.amount): super("Food");
+
+  @override
+  void displayInfo(int index){
+    print("$index. $title \t - ${amount.toTaka()}  \t - $catagory");
+  }
+}
+
+class TransportExpense extends Expense {
+  TransportExpense (super.title, super.amount): super("Transport");
+
+  @override
+  void displayInfo(int index){
+    print("$index. $title \t - ${amount.toTaka()}  \t - $catagory");
+  }
+}
+
+class EntertainmentExpense extends Expense {
+  EntertainmentExpense (super.title, super.amount) : super("Entertainment");
+
+  @override
+  void displayInfo()(int index){
+  print ("index. $title \t - ${amount.toTaka()} \t - $catagory");
+  }
 }
