@@ -45,3 +45,12 @@ class EntertainmentExpense extends Expense {
   print ("index. $title \t - ${amount.toTaka()} \t - $catagory");
   }
 }
+
+class GeneralExpense extends Expense {
+  GeneralExpense (super.title, super.amount) : super("Entertainment");
+  @override
+  void displayInfo()(int index){
+  print ("index. $title \t - ${amount.toTaka()} \t - $catagory");
+  }
+}
+
