@@ -20,7 +20,7 @@ abstract class Expense {
 }
 
 class FoodExpense extends Expense {
-  FoodExpense(super.title, super.amount): super("Food");
+  FoodExpense(String title, double amount) : super(title, amount, "Food");
 
   @override
   void displayInfo(int index){
@@ -29,8 +29,7 @@ class FoodExpense extends Expense {
 }
 
 class TransportExpense extends Expense {
-  TransportExpense (super.title, super.amount): super("Transport");
-
+  TransportExpense(String title, double amount) : super(title, amount, "Transport");
   @override
   void displayInfo(int index){
     print("$index. $title \t - ${amount.toTaka()}  \t - $catagory");
@@ -38,7 +37,7 @@ class TransportExpense extends Expense {
 }
 
 class EntertainmentExpense extends Expense {
-  EntertainmentExpense (super.title, super.amount) : super("Entertainment");
+  EntertainmentExpense(String title, double amount) : super(title, amount, "Entertainment");
 
   @override
   void displayInfo(int index){
@@ -47,10 +46,11 @@ class EntertainmentExpense extends Expense {
 }
 
 class GeneralExpense extends Expense {
-  GeneralExpense (super.title, super.amount) : super("Entertainment");
+  GeneralExpense(super._title, super._amount, super._catagory);
+
   @override
-  void displayInfo()(int index){
-  print ("index. $title \t - ${amount.toTaka()} \t - $catagory");
+  void displayInfo(int index){
+  print ("$index. $title \t - ${amount.toTaka()} \t - $catagory");
   }
 }
 
@@ -67,11 +67,11 @@ stdout.write("Choose Option: ");
 
 String? choice= stdin.readLineSync();
 
-if (choice ==1) {
-  addexpense(expenseTracker);}
+if (choice =="1") {            //""
+  addExpense(expenseTracker);}
 
 else if (choice == "2"){
-  ViewAllExpenses(expenseTracker);}
+  viewAllExpenses(expenseTracker);}
 
 else if (choice == "3") {
   showTotalExpenses(expenseTracker);}
@@ -94,54 +94,40 @@ void addExpense(List<Expense> list) {
 
   Expense finalExpense;
 
-  void addExpense(List<Expense> list) {
-    stdout.write("\nEnter Expense Title: ");
-    String title = stdin.readLineSync() ?? "Untitled";
-
-    stdout.write("Enter Expense Amount: ");
-    double amount = double.tryParse(stdin.readLineSync() ?? "") ?? 0.0;
-    stdout.write("Enter Category (Food/Transport/Entertainment): ");
-    String categoryInput = stdin.readLineSync() ?? "General";
-    Expense finalExpense;
-
-
-    switch (categoryInput.trim().toLowerCase()) {
-      case 'food':
-        finalExpense = FoodExpense(title, amount);
-
-      case 'transport':
-        finalExpense = TransportExpense(title, amount);
-
-      case 'entertainment':
-        finalExpense = EntertainmentExpense(title, amount);
-
-      default:
-        finalExpense = GeneralExpense(title, amount, categoryInput);
-    }
-
-    list.add(finalExpense);
-    print("Expense Added Successfully!");
+  switch (categoryInput.trim().toLowerCase()) {
+    case 'food':
+      finalExpense = FoodExpense(title, amount);
+      break;
+    case 'transport':
+      finalExpense = TransportExpense(title, amount);
+      break;
+    case 'entertainment':
+      finalExpense = EntertainmentExpense(title, amount);
+      break;
+    default:
+      finalExpense = GeneralExpense(title, amount, categoryInput);
   }
 
-  void viewAllExpenses(List<Expense> list) {
-    if (list.isEmpty) {
-      print("\nNo expenses logged yet.");
-      return;
-    }
+  list.add(finalExpense);
+  print("Expense Added Successfully!");
+}
 
-
-    print("\n===== All Expenses =====");
-    for (int i = 0; i < list.length; i++) {
-      list[i].displayInfo(i + 1);
-    }
+void viewAllExpenses(List<Expense> list) {
+  if (list.isEmpty) {
+    print("\nNo expenses logged yet.");
+    return;
   }
 
-  void showTotalExpenses(List<Expense> list) {
-    double total = 0.0;
-
-    for (var expense in list) {
-      total += expense.amount;}
-
-
-    print("Total Expenses: ${total.toTaka()}");
+  print("\n===== All Expenses =====");
+  for (int i = 0; i < list.length; i++) {
+    list[i].displayInfo(i + 1);
   }
+}
+
+void showTotalExpenses(List<Expense> list) {
+  double total = 0.0;
+  for (var expense in list) {
+    total += expense.amount;
+  }
+  print("Total Expenses: ${total.toTaka()}");
+}
